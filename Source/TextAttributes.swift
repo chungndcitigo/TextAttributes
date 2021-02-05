@@ -53,21 +53,7 @@ public enum TextEffect {
 
 open class TextAttributes {
     /// The attributes dictionary.
-    open fileprivate(set) var dictionary: [NSAttributedStringKey: Any] = [:]
-    
-    /**
-     Create an instance of TextAttributes with a base.
-     
-     - parameter base: The base.
-     
-     - returns: The created TextAttributes.
-     */
-    @available(*, deprecated: 1, message: "Please use the clone() method.")
-    public init(base: TextAttributes) {
-        dictionary = base.dictionary
-        paragraphStyle = base.paragraphStyle.clone()
-        dictionary[.paragraphStyle] = paragraphStyle
-    }
+    open fileprivate(set) var dictionary: [NSAttributedString.Key: Any] = [:]
     
     /**
      Create an instance of TextAttributes.
@@ -200,10 +186,10 @@ open class TextAttributes {
     /// The strikethrough style attribute.
     open var strikethroughStyle: NSUnderlineStyle {
         get {
-            if let int = dictionary[.strikethroughStyle] as? Int, let style = NSUnderlineStyle(rawValue: int) {
-                return style
+            if let int = dictionary[.strikethroughStyle] as? Int {
+                return NSUnderlineStyle(rawValue: int)
             } else {
-                return .styleNone
+                return .single
             }
         }
         
@@ -310,10 +296,10 @@ open class TextAttributes {
     /// The underline style attribute.
     open var underlineStyle: NSUnderlineStyle {
         get {
-            if let int = dictionary[.underlineStyle] as? Int, let style = NSUnderlineStyle(rawValue: int) {
-                return style
+            if let int = dictionary[.underlineStyle] as? Int {
+                return NSUnderlineStyle(rawValue: int)
             } else {
-                return .styleNone
+                return .single
             }
         }
         
